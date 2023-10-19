@@ -128,86 +128,49 @@ contract InvestorRegistration {
  */
 contract StackOverflow {
 
-    function createAssetDetails(
-        address currency,
-        address settlementCurrency,
-        bytes32 marketObjectCodeRateReset,
-        int notionalPrincipal,
-        int nominalInterestRate,
-        int accruedInterest,
-        int rateMultiplier, 
-        uint contractDealDate,
-        uint statusDate,
-        uint initialExchangeDate,
-        uint maturityDate,
-        uint purchaseDate,
-        uint capitalizationEndDate,
-        uint cycleAnchorDateOfInterestPayment,
-        uint cycleAnchorDateOfRateReset,
-        uint cycleAnchorDateOfScalingIndex,
-        uint cycleAnchorDateOfFee
-    )
-        external
-    {
-        require(currency != address(0x00), "Invalid currency address");
-        require(settlementCurrency != address(0x00), "Invalid settlement currency address");
-        require(marketObjectCodeRateReset != bytes32(0x00), "Code rate request is required");
-        require(notionalPrincipal != 0, "notionalPrincipalnotionalPrincipal can't be empty");
-        require(nominalInterestRate != 0, "nominalInterestRate can't be empty");
-        require(accruedInterest != 0, "accruedInterest can't be empty");
-        require(rateMultiplier != 0, "rateMultiplier can't be empty");
-        require(contractDealDate != 0, "Contract deal date can't be empty");
-        require(statusDate != 0, "statusDate can't be empty");
-        require(initialExchangeDate != 0, "initialExchangeDate can't be empty");
-        require(maturityDate != 0, "maturityDate can't be empty");
-        require(purchaseDate != 0, "purchaseDate can't be empty");
-        require(capitalizationEndDate != 0, "capitalizationEndDate can't be empty");
-        require(cycleAnchorDateOfInterestPayment != 0, "cycleAnchorDateOfInterestPayment can't be empty");
-        require(cycleAnchorDateOfScalingIndex != 0, "cycleAnchorDateOfScalingIndex can't be empty");
-        require(cycleAnchorDateOfFee != 0, "cycleAnchorDateOfFee can't be empty");
-        
-        saveDetailsToStorage(
-            currency,
-            settlementCurrency,
-            marketObjectCodeRateReset,
-            notionalPrincipal,
-            nominalInterestRate,
-            accruedInterest,
-            rateMultiplier,
-            contractDealDate,
-            statusDate,
-            initialExchangeDate,
-            maturityDate,
-            purchaseDate,
-            capitalizationEndDate,
-            cycleAnchorDateOfInterestPayment,
-            cycleAnchorDateOfRateReset,
-            cycleAnchorDateOfScalingIndex,
-            cycleAnchorDateOfFee
-        );
+    /// Implemented a struct to encapsulate all of the variables into one
+    struct AssetDetails {
+        address currency;
+        address settlementCurrency;
+        bytes32 marketObjectCodeRateReset;
+        int notionalPrincipal;
+        int nominalInterestRate;
+        int accruedInterest;
+        int rateMultiplier;
+        uint contractDealDate;
+        uint statusDate;
+        uint initialExchangeDate;
+        uint maturityDate;
+        uint purchaseDate;
+        uint capitalizationEndDate;
+        uint cycleAnchorDateOfInterestPayment;
+        uint cycleAnchorDateOfRateReset;
+        uint cycleAnchorDateOfScalingIndex;
+        uint cycleAnchorDateOfFee;
     }
-    
-    function saveDetailsToStorage(
-        address currency,
-        address settlementCurrency,
-        bytes32 marketObjectCodeRateReset,
-        int notionalPrincipal,
-        int nominalInterestRate,
-        int accruedInterest,
-        int rateMultiplier, 
-        uint contractDealDate,
-        uint statusDate,
-        uint initialExchangeDate,
-        uint maturityDate,
-        uint purchaseDate,
-        uint capitalizationEndDate,
-        uint cycleAnchorDateOfInterestPayment,
-        uint cycleAnchorDateOfRateReset,
-        uint cycleAnchorDateOfScalingIndex,
-        uint cycleAnchorDateOfFee
-    )
-        internal
-    {
+
+    function createAssetDetails(AssetDetails memory details) external {
+        require(details.currency != address(0x00), "Invalid currency address");
+        require(details.settlementCurrency != address(0x00), "Invalid settlement currency address");
+        require(details.marketObjectCodeRateReset != bytes32(0x00), "Code rate request is required");
+        require(details.notionalPrincipal != 0, "notionalPrincipalnotionalPrincipal can't be empty");
+        require(details.nominalInterestRate != 0, "nominalInterestRate can't be empty");
+        require(details.accruedInterest != 0, "accruedInterest can't be empty");
+        require(details.rateMultiplier != 0, "rateMultiplier can't be empty");
+        require(details.contractDealDate != 0, "Contract deal date can't be empty");
+        require(details.statusDate != 0, "statusDate can't be empty");
+        require(details.initialExchangeDate != 0, "initialExchangeDate can't be empty");
+        require(details.maturityDate != 0, "maturityDate can't be empty");
+        require(details.purchaseDate != 0, "purchaseDate can't be empty");
+        require(details.capitalizationEndDate != 0, "capitalizationEndDate can't be empty");
+        require(details.cycleAnchorDateOfInterestPayment != 0, "cycleAnchorDateOfInterestPayment can't be empty");
+        require(details.cycleAnchorDateOfScalingIndex != 0, "cycleAnchorDateOfScalingIndex can't be empty");
+        require(details.cycleAnchorDateOfFee != 0, "cycleAnchorDateOfFee can't be empty");
+
+        saveDetailsToStorage(details);
+    }
+
+    function saveDetailsToStorage(AssetDetails memory details) internal {
         // Mock function
         // skip implementation
     }
