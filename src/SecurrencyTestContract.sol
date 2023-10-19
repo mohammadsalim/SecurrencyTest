@@ -13,9 +13,10 @@ pragma solidity >=0.7.0 <0.9.0;
  */
 contract StringMatch {
 
-    function doStringsMatch(string memory a, string memory b) external returns (bool)
+    function doStringsMatch(string memory a, string memory b) external pure returns (bool)
     {
-
+        /// using keccak256 hashing after converting the strings to a byte array, rather than a manual byte by byte comparison & checking the length of each string which is less gas efficient
+        return keccak256(bytes(a)) == keccak256(bytes(b));
     }
 }
 
