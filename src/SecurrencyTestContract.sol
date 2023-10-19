@@ -37,7 +37,8 @@ contract StringMatch {
 contract InvestorRegistration {
     uint public investmentRound = 1;
 
-    InvestorDetails public investorsDetails;
+    /// Instead of having a single InvestorDetails instance, we need a mapping that links each investment round to its InvestorDetails.
+    mapping(uint => InvestorDetails) public investmentRounds;
 
     struct InvestorDetails {
         address investor;
@@ -72,7 +73,8 @@ contract InvestorRegistration {
         require(depositAmount > 0, "A deposint amount should be more than zero");
         require(age > 18, "The investor should be adult");
 
-        InvestorDetails storage details = investorsDetails;
+        /// This function should now store the investor details for the current round and then increase the investmentRound counter.
+        InvestorDetails storage details = investmentRounds[investmentRound];
 
         details.investor = investor;
         details.deposit = depositAmount;
@@ -102,7 +104,8 @@ contract InvestorRegistration {
             bool isUSResident
         )
     {
-        InvestorDetails memory investorDetails = investorsDetails;
+        /// This should allow the function to now fetch the investor details of a specific round provided as input.
+        InvestorDetails memory investorDetails = investmentRounds[round];
 
         return (
             investorDetails.investor,
